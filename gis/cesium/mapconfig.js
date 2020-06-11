@@ -158,8 +158,8 @@ MapConfig.locations= {
     height:48,
     type: "infoWindow",
     models: [
-        {id: "location_1",  name: "小回沟煤业有限公司综合办公楼", location: [112.297872,37.712038]},
-        {id: "location_2",  name: "山西小回沟煤业有限公司", location: [112.302931,37.708495]},
+        {id: "location_1",  name: "小回沟煤业办公楼", location: [112.297872,37.712038]},
+        {id: "location_2",  name: "小回沟煤业公司", location: [112.302931,37.708495]},
         {id: "location_3",  name: "清徐县人民政府", location: [112.365783,37.614585]}
     ]
 };

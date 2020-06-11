@@ -1,0 +1,195 @@
+/*整体字体样式*/
+body{
+    font-family: "Helvetica Neue", Helvetica, Arial, "Heiti SC","Microsoft Yahei", sans-serif;
+}
+/*top样式*/
+#div-top{
+    width:100%;
+    height:10%;
+    color:#fff;
+    background-color:#3c8dbc;
+}
+/*导航栏样式*/
+#div-top ul li{
+    display:inline-block;
+    margin-left: 30px;
+    width: 80px;
+    cursor: pointer;
+ }
+ .img-show{
+    width: 30px;
+    height: 31px;
+    display: block;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    margin-left: -35px;
+ }
+/*左侧导航栏样式*/
+ *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+}
+a, a:hover, a:focus {
+    text-decoration: none;
+    color: #262626;
+}
+.i-icon{
+   display: inline-block;
+}
+.go-back{
+    padding-top: 50px;
+    text-align: center;
+}
+.window-left.fold{
+    overflow: visible!important;
+}
+.window-left{
+    position:relative;
+    float:left;
+    width:200px;
+    height:100%;
+    overflow: hidden;
+    /* background-color: #e8e9ec; */
+}
+.window-left.fold{
+    overflow: visible!important;
+}
+.window-left .go-back a{
+    display: inline-block;
+    width: 160px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+    border: solid 1px #fff;
+    text-align: center;
+}
+.window-left .go-back a .i-icon{
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+    /* background-image: url("../img/left-arrow.png"); */
+}
+.window-left.fold .go-back a{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: solid 1px #7e84b1;
+}
+/* .window-left.fold .go-back a .i-icon{
+    /* background-image: url("../img/right-arrow.png"); */
+} */
+.window-left .go-back{
+    text-align: center;
+}
+.window-left .menu-list{
+    padding-top:20px;
+    /* font-size:18px; */
+}
+.window-left .menu-list ul{
+    list-style: none;
+    padding:0;
+    margin:0 auto;
+}
+.window-left .menu-list ul li{
+    text-align:left;
+    color: #fff;
+}
+.window-left .menu-list ul li.first-menu{
+    position: relative;
+    color: #fff;
+}
+.window-left .menu-list>ul>li .i-icon{
+    width: 28px;
+    height: 28px;
+    vertical-align: sub;
+}
+.window-left .menu-list ul li:HOVER>span{
+    /* color: #1c9dff; */
+    cursor: pointer;
+}
+.window-left .menu-list ul li a{
+    display:block;
+}
+.window-left .menu-list ul li.first-menu>a{
+    position: relative;
+    padding-left: 15px;
+    width: 100%;
+    line-height: 50px;
+    white-space: nowrap;
+    color: #fff;
+}
+.window-left .menu-list ul li.first-menu .hover-tit{
+    display: block;
+    position: absolute;
+    left: 55px;
+    top:13px;
+    width: 140px;
+}
+.window-left.fold .menu-list ul li.first-menu .hover-tit{
+    display: none;
+    width: 180px;
+    height: 50px;
+    left: 60px;
+    line-height: 50px;
+    padding-left: 20px;
+    background-color: #bfbcbc;
+    color: #646567;
+    cursor: Default;
+}
+.window-left.fold .menu-list ul li.first-menu:hover{
+    background-color: #bfbcbc;
+}
+.window-left.fold .menu-list ul li.first-menu:hover .hover-tit{
+    display: block!important;
+    top:0;
+}
+.window-left.fold .menu-list ul li.first-menu:hover ul{
+    display: block!important;
+    position: absolute;
+    width: 180px;
+    top:50px;
+    left: 60px;
+}
+.window-left.fold .menu-list ul li.first-menu:hover ul li{
+    height: 45px;
+    border-top: 1px solid #35395f;
+    background-color: #bfbcbc;
+}
+.window-left.fold .menu-list ul li.first-menu:hover ul li a{
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+/* .window-left .menu-list ul li.first-menu.active>span{
+    color: #1c9dff;
+} */
+.window-left .menu-list ul li.first-menu.active> a{
+    /* color: #1c9dff; */
+    background: #3375A1;
+}
+
+.window-left .menu-list ul li.first-menu.active ul li.second-menu.current a{
+    background-color:rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #101213;
+    font-size: 16px;
+}
+.window-left .menu-list ul li.first-menu ul{
+    display:none;
+}
+.window-left .menu-list ul li.first-menu ul li.second-menu a{
+    padding: 12px 0 12px 55px;
+    font-size:16px;
+    color: #fff;
+}
+.window-left.fold .menu-list ul li.first-menu ul li.second-menu a{
+    padding-left: 20px;
+    font-size:16px;
+    color: #fff;
+}

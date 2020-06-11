@@ -74,138 +74,163 @@
 <!--三维漫游飞行-->
 <script type="text/javascript" src="gis/map/flycesium.js"></script>
 <script>
-    seajs.use(ctx+'/gis/map/index.js');
+    seajs.use(getRootPath+'/gis/map/index.js');
 </script>
  
 </head>
 <body>
-    <div id="header">
+    <!-- <div id="header">
         <div id="header_left"><br>煤矿安全运行监控平台</div>
-    </div>
-    <div class="main-container" id="main-container">
-        <div class="main-content">
-        
-<div class="map_box">
-    <!--三维-->
-    <div id="d3d">
-        <div class="map_content" id="cesiumMap"></div>
-        <!--三维飞行漫游菜单界面-->
-        <div class="fly3DPaths">
-            <div class="fly3DPaths_title">操作菜单</div>
-            <!--新增-->
-            <!-- tab导航部分 -->
-            <div class='fly3DPaths_tab'>
-                <ul style='margin-left:0px;' class="fly3DPaths_tab_ul">
-                    <li id='overFlyClick' class="select"><span><span class='flss'></span><a href='javascript:void(0)'>预设路线</a></span></li>
-                    <li id='drawFlyCilck'><span><span class='flss'></span><a href='javascript:void(0);'>手动绘制</a></span></li>
-                </ul>
-            </div>
-            <!-- tab内容部分 -->
-            <!-- 预设路线 -->
-            <div id='overFlyPage' style='height: 100%;'>
-                <div style="padding: 5px;margin-top: 5px;">
-                    <div class='ydph-table-wrap'>
-                        <div class='ydph-talbe-head'>
-                            <table id='overFly_table' style='width:272px;'>
-                                <thead>
-                                <tr>
-                                    <!--<th class='colspan1'><input type='checkbox' onchange=''/></th>-->
-                                    <th class='colspan4'>名称</th>
-                                    <th class='colspan2'>操作</th>
-                                    <th class='colspan2'>修改</th>
-                                    <th class='colspan2'>删除</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- 手动绘制 -->
-            <div id='drawFlyPage' style='height: 100%; display:none'>
-                <div class="fly3DPaths_content">
-                    <input id="start_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="开始飞行">
-                    <input id="pause_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="暂停飞行">
-                    <input id="playForward_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向前飞行">
-                    <input id="playReverse_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向后飞行">
-                    <input id="draw_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="设定路线">
-                    <input id="save_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="保存路线">
-                    <input id="clear_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="清空路线">
-                    <input id="stop_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="退出飞行">
-                </div>
-            </div>
-
-        </div>
-
+    </div> -->
+<div>
+    <div style="float:left;width:15%;height:900px;background: rgba(3, 33, 119, 0.7);">
         <div class="map_toolbar_box"  >
             <div class="map_toolbar">
                 <!--<div class="map_toolbar_head">工具栏</div>-->
                 <ul class="map_toolbar_list">
-                    <li title="地图复位" id="cesiumMapFull">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar45"></span>
-                    </li>
-                    <li class="map_toolbar_list_drop" title="测量工具">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar1"></span>
-                        <ul class="map_toolbar_list_more">
-                            <li id="measureDistance">
-                                测距<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar11"></span>
-                            </li>
-                            <li id="measureArea">
-                                测面<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar12"></span>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="map_toolbar_list_drop" title="标绘" id="cesiumDrawToolbar">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar2"></span>
-                        <ul class="map_toolbar_list_more">
-                            <div id="toolbar" class="cesium_toolbar"></div>
-                        </ul>
-                    </li>
                     <li class="map_toolbar_list_drop" title="图层管理器" id="cesium3DLayers">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar4"></span>
+                        <span class="map_toolbar_list_icon ">图层管理</span>
                         <ul class="map_toolbar_list_more">
                             <div class="syn3D">
                                 <div id="LayerTree" style="width:150px;"><ul id="ztreeThemeServerOfLayer" class="ztree"></ul></div>
                             </div>
                         </ul>
                     </li>
+                    <li class="first-menu" title="搜索" >
+                        <span class="map_toolbar_list_icon ">搜索</span>
+                        <ul style="width:200px;height:160px;display:none;">
+                            <li id="attributeQuery">
+                                属性<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar21"></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="map_toolbar_list_drop" >
+                        <span class="map_toolbar_list_icon ">空间分析</span>
+                        <ul class="map_toolbar_list_more" style="width:150px;">
+                            <li id="videoShow">
+                                视频<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar11"></span>
+                            </li>
+                            <li id="inundationAnalysis">
+                                淹没<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar12"></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="map_toolbar_list_drop" title="标绘" id="cesiumDrawToolbar">
+                        <span class="map_toolbar_list_icon ">标绘</span>
+                        <ul class="map_toolbar_list_more" style="width:150px;">
+                            <div id="toolbar" class="cesium_toolbar"></div>
+                        </ul>
+                    </li>
+                    <li class="map_toolbar_list_drop" title="测量工具">
+                        <span class="map_toolbar_list_icon ">工具</span>
+                        <ul class="map_toolbar_list_more" style="width:150px;">
+                            <li  id="cesiumMapFull">
+                                复位 <span class="map_toolbar_list_more_icon map_toolbar_list_icon-toolbar45"></span>
+                            </li>
+                            <li id="measureDistance">
+                                测距<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar11"></span>
+                            </li>
+                            <li id="measureArea">
+                                测面<span class="map_toolbar_list_more_icon map_toolbar_list_more_icon-toolbar12"></span>
+                            </li>
+                            <li id="cesium3DSlider">
+                                卷帘<span class="map_toolbar_list_more_icon map_toolbar_list_icon-toolbar26"></span>
+                            </li>
+                            <li  id="cesiumClearData">
+                                清空<span class="map_toolbar_list_more_icon map_toolbar_list_icon-toolbar7"></span>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="map_toolbar_list_drop" >
+                        <span class="map_toolbar_list_icon ">模型</span>
+                        <ul class="map_toolbar_list_more" style="width:150px;">
+                            <li title="3D模型" id="cesium3DModel">
+                                3D<span class="map_toolbar_list_more_icon map_toolbar_list_icon-toolbar46"></span>
+                            </li>
+                            <li title="倾斜模型" id="cesium3DTiles">
+                                倾斜<span class="map_toolbar_list_more_icon  map_toolbar_list_icon-toolbar47"></span>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="map_toolbar_list_drop" title="热点定位器" id="cesium3DLocation">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar5"></span>
+                        <span class="map_toolbar_list_icon ">热点定位</span>
                         <ul class="map_toolbar_list_more">
                             <div class="syn_location3D">
                                 <div class="syn_con3D"><div class="pub_syn3D"><div class="pub_syn_rt3D"></div></div></div>
                             </div>
                         </ul>
                     </li>
-					<li title="清空" id="cesiumClearData">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar7"></span>
-                    </li>
-                    <li title="卷帘工具" id="cesium3DSlider">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar26"></span>
-                    </li>
-                    <li title="3D模型" id="cesium3DModel">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar46"></span>
-                    </li>
-                    <li title="倾斜模型" id="cesium3DTiles">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar47"></span>
-                    </li>
-                    <li title="地貌" id="cesiumTerrain">
+                    <!-- <li title="地貌" id="cesiumTerrain">
                         <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar48"></span>
-                    </li>
+                    </li> -->
                     <li title="飞行" id="cesiumFly3DPaths">
-                        <span class="map_toolbar_list_icon map_toolbar_list_icon-toolbar105"></span>
+                        <span class="map_toolbar_list_icon">飞行</span>
                     </li>
                 </ul>
 
             </div>
         </div>
     </div>
-</div>
-             
+    <div style="width:85%;float:left;" class="main-container" id="main-container">
+        <div class="main-content">
+            <div class="map_box">
+                <!--三维-->
+                <div id="d3d">
+                    <div class="map_content" id="cesiumMap"></div>
+                    <!--三维飞行漫游菜单界面-->
+                    <div class="fly3DPaths">
+                        <div class="fly3DPaths_title">操作菜单</div>
+                        <!--新增-->
+                        <!-- tab导航部分 -->
+                        <div class='fly3DPaths_tab'>
+                            <ul style='margin-left:0px;' class="fly3DPaths_tab_ul">
+                                <li id='overFlyClick' class="select"><span><span class='flss'></span><a href='javascript:void(0)'>预设路线</a></span></li>
+                                <li id='drawFlyCilck'><span><span class='flss'></span><a href='javascript:void(0);'>手动绘制</a></span></li>
+                            </ul>
+                        </div>
+                        <!-- tab内容部分 -->
+                        <!-- 预设路线 -->
+                        <div id='overFlyPage' style='height: 100%;'>
+                            <div style="padding: 5px;margin-top: 5px;">
+                                <div class='ydph-table-wrap'>
+                                    <div class='ydph-talbe-head'>
+                                        <table id='overFly_table' style='width:272px;'>
+                                            <thead>
+                                            <tr>
+                                                <!--<th class='colspan1'><input type='checkbox' onchange=''/></th>-->
+                                                <th class='colspan4'>名称</th>
+                                                <th class='colspan2'>操作</th>
+                                                <th class='colspan2'>修改</th>
+                                                <th class='colspan2'>删除</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 手动绘制 -->
+                        <div id='drawFlyPage' style='height: 100%; display:none'>
+                            <div class="fly3DPaths_content">
+                                <input id="start_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="开始飞行">
+                                <input id="pause_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="暂停飞行">
+                                <input id="playForward_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向前飞行">
+                                <input id="playReverse_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向后飞行">
+                                <input id="draw_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="设定路线">
+                                <input id="save_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="保存路线">
+                                <input id="clear_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="清空路线">
+                                <input id="stop_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="退出飞行">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+   
 </body>
  <script>
 (function(){

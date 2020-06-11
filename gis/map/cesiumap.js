@@ -1,6 +1,9 @@
 define(function (require, exports, module) {
     var cesium = null;
     function init() {
+        // 申请的token
+        Cesium.Ion.defaultAccessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzZmQ1MTJiZC03NmFmLTQ0YzMtYjAwMS1iNTQ3ZDBkNmU2ODgiLCJpZCI6Mjg4MDUsInNjb3BlcyI6WyJhc'+
+        '2wiLCJhc3IiLCJhc3ciLCJnYyIsInByIl0sImlhdCI6MTU5MTU4NzY0Mn0.9pVXyPhcRF9lax5CPChENS_pof73mT8Aexbfb4CB5PY';
         //地图初始化
         cesium  = new CesiumViewer("cesiumMap",{mapInitParams:MapConfig.mapInitParams});
         //显示当前坐标
@@ -9,18 +12,18 @@ define(function (require, exports, module) {
         cesium.hideMapLogo();
         //添加导航指北针
         cesium.cesiumViewer.extend(Cesium.viewerCesiumNavigationMixin, {defaultResetView:cesium.defaultResetView});
-        //加载地形图
-        $("#cesiumTerrain").click(function(){
-            if($(this).attr("class").indexOf("selected") != -1){
-                cesium.addTerrainLayer(MapConfig.terrainObj);
-            }else{
-                cesium.romoveTerrainLayer();
-            }
-        });
+        // //加载地形图（地貌）
+        // $("#cesiumTerrain").click(function(){
+        //     if($(this).attr("class").indexOf("selected") != -1){
+        //         cesium.addTerrainLayer(MapConfig.terrainObj);
+        //     }else{
+        //         cesium.romoveTerrainLayer();
+        //     }
+        // });
         //cesium.addTerrainLayer(MapConfig.terrainObj);
         //底图切换
         cesium.loadSwitcherMap(MapConfig.mapInitParams.imageryViewModels);
-        //显示图层控制器
+        //显示图层控制器（图层管理器）
         $("#cesium3DLayers").click(function(){
             cesium.show3DLayers(MapConfig.Layers);
         });
@@ -33,24 +36,22 @@ define(function (require, exports, module) {
         $("#cesiumClearData").click(function(){
             cesium.clearMap();
         });
-        //显示地图复位
+        //显示地图复位（第一个图标）
         $("#cesiumMapFull").click(function(){
             cesium.flyToRectangle(cesium.initExtent);
         });
         //显示地图卷帘
         $("#cesium3DSlider").click(function(){
-            if($(this).attr("class").indexOf("selected") != -1){
-                cesium.showCesiumSlider(3);
-            }else{
-                cesium.hideCesiumSlider();
-            }
+            cesium.showCesiumSlider(3);
         });
         //量算工具
         var html='<div id="toolTip" class="measure-mouse-tip" style="display:none;color:rgb(236, 159, 30);border: 1px solid rgb(236, 159, 30);position:absolute;font-size:12px;color:#fff">单击开始，双击结束</div>';
         $('.cesium-viewer').append(html);
+        // 测量距离
         $("#measureDistance").click(function(){
             new measureDistance(cesium);
         });
+        // 测量面积
         $("#measureArea").click(function(){
             new measureArea(cesium);
         });
@@ -138,6 +139,7 @@ define(function (require, exports, module) {
                 //loggingMessage('Extent edited: extent is (N: ' + event.extent.north.toFixed(3) + ', E: ' + event.extent.east.toFixed(3) + ', S: ' + event.extent.south.toFixed(3) + ', W: ' + event.extent.west.toFixed(3) + ')');
             });
         });
+        // 标绘
         $("#cesiumDrawToolbar").click(function(){
             if($(this).attr("class").indexOf("selected") != -1){
                 $("#toolbar").show();
@@ -148,7 +150,7 @@ define(function (require, exports, module) {
 
         //三维模型3DModels
         //为了适配模型的光源效果最佳状态，设置模型的当前光照时间，并且停止时间流动计算
-        cesium.cesiumViewer.clockViewModel.currentTime = Cesium.JulianDate.fromIso8601('2018-01-29T12:00:00+08:00');//北京时间
+        cesium.cesiumViewer.clockViewModel.currentTime = Cesium.JulianDate.fromIso8601('2020-06-08T12:00:00+08:00');//北京时间
         cesium.cesiumViewer.clockViewModel.shouldAnimate = false;
         cesium.cesiumViewer.clockViewModel.canAnimate  = false;
         //cesium.cesiumViewer.scene.sun = new Cesium.Sun();
@@ -157,20 +159,9 @@ define(function (require, exports, module) {
         /*cesium.cesiumViewer.clockViewModel.currentTime = Cesium.JulianDate.fromDate(new Date());//北京时间
         cesium.cesiumViewer.clockViewModel.shouldAnimate = true;
         cesium.cesiumViewer.clockViewModel.canAnimate  = true;*/
-        $("#cesium3DModel").click(function(){          
-            if($(this).attr("class").indexOf("selected") != -1){
-            	cesium.add3DGlft(MapConfig.Obj3D);
-            }else{
-            	if(cesium.cesiumViewer.entities._entities && cesium.cesiumViewer.entities._entities.length>0){
-            		/*for(var i=0;i<cesium.cesiumViewer.entities._entities._array.length;i++){
-                		var entity = cesium.cesiumViewer.entities._entities._array[i];
-                		if(entity.id.indexOf("3D_gltf") != -1){
-                			cesium.cesiumViewer.entities.remove(entity);
-                		}
-            		}*/
-                    cesium.cesiumViewer.entities.removeAll();//清空所有模型
-                }
-            }
+        // 3D模型
+        $("#cesium3DModel").click(function(){ 
+            cesium.add3DGlft(MapConfig.Obj3D);
         });
         //倾斜摄影3DTiles
         $("#cesium3DTiles").click(function(){
@@ -242,7 +233,6 @@ define(function (require, exports, module) {
             }
         });
         bxmap.FlyCesium.Init(cesium,drawHelper);//初始化漫游飞行路径功能
-
     }
 
     //URL及其他配置信息

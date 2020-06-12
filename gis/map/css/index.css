@@ -46,9 +46,6 @@ a, a:hover, a:focus {
     padding-top: 50px;
     text-align: center;
 }
-.window-left.fold{
-    overflow: visible!important;
-}
 .window-left{
     position:relative;
     float:left;
@@ -82,7 +79,7 @@ a, a:hover, a:focus {
     border: solid 1px #7e84b1;
 }
 /* .window-left.fold .go-back a .i-icon{
-    /* background-image: url("../img/right-arrow.png"); */
+    /* background-image: url("../img/right-arrow.png"); 
 } */
 .window-left .go-back{
     text-align: center;
@@ -104,16 +101,16 @@ a, a:hover, a:focus {
     position: relative;
     color: #fff;
 }
-.window-left .menu-list>ul>li .i-icon{
+/* .window-left .menu-list>ul>li .i-icon{
     width: 28px;
     height: 28px;
     vertical-align: sub;
-}
+} */
 .window-left .menu-list ul li:HOVER>span{
     /* color: #1c9dff; */
     cursor: pointer;
 }
-.window-left .menu-list ul li a{
+.second-menu a{
     display:block;
 }
 .window-left .menu-list ul li.first-menu>a{
@@ -123,6 +120,7 @@ a, a:hover, a:focus {
     line-height: 50px;
     white-space: nowrap;
     color: #fff;
+    display:block;
 }
 .window-left .menu-list ul li.first-menu .hover-tit{
     display: block;
@@ -131,19 +129,21 @@ a, a:hover, a:focus {
     top:13px;
     width: 140px;
 }
+/*折叠之后将鼠标放在图标上显示的菜单信息*/
 .window-left.fold .menu-list ul li.first-menu .hover-tit{
     display: none;
     width: 180px;
-    height: 50px;
+    height: 53px;
     left: 60px;
     line-height: 50px;
     padding-left: 20px;
-    background-color: #bfbcbc;
-    color: #646567;
+    background-color: #3375A1;
+    color: #fff;
     cursor: Default;
+    z-index:113;
 }
 .window-left.fold .menu-list ul li.first-menu:hover{
-    background-color: #bfbcbc;
+    background-color: #3375A1;
 }
 .window-left.fold .menu-list ul li.first-menu:hover .hover-tit{
     display: block!important;
@@ -155,26 +155,25 @@ a, a:hover, a:focus {
     width: 180px;
     top:50px;
     left: 60px;
+    z-index:114;
+    background-color: rgb(60, 141, 188);
 }
 .window-left.fold .menu-list ul li.first-menu:hover ul li{
-    height: 45px;
-    border-top: 1px solid #35395f;
-    background-color: #bfbcbc;
+    height: 53px;
+    /* border-top: 1px solid #709cb9f7; */
 }
 .window-left.fold .menu-list ul li.first-menu:hover ul li a{
     width: 100%;
+    /*文本不换行*/
     white-space: nowrap;
+    /*省略符号来代表被修剪的文本*/
     text-overflow: ellipsis;
     overflow: hidden;
 }
-/* .window-left .menu-list ul li.first-menu.active>span{
-    color: #1c9dff;
-} */
 .window-left .menu-list ul li.first-menu.active> a{
     /* color: #1c9dff; */
     background: #3375A1;
 }
-
 .window-left .menu-list ul li.first-menu.active ul li.second-menu.current a{
     background-color:rgba(0, 0, 0, 0.1);
     border-left: 4px solid #101213;
@@ -192,4 +191,5 @@ a, a:hover, a:focus {
     padding-left: 20px;
     font-size:16px;
     color: #fff;
+    z-index:113;
 }

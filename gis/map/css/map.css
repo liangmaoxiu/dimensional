@@ -236,13 +236,11 @@ ul,li{
 
 } 
  .map_toolbar_list_more{
-    position:absolute;
-    left:130px;
+    position:fixed;
+    left:150px;
     height:auto;
-    width:200px;
     font-size:14px;
-    top:0px;
-    background:rgba(0,0,0,0.8);
+    background:rgb(86, 148, 221);
     z-index:112;
     padding-left:10px;
 }

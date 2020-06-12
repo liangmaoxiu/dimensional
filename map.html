@@ -74,7 +74,7 @@
 <!--三维漫游飞行-->
 <script type="text/javascript" src="gis/map/flycesium.js"></script>
 <script>
-    seajs.use(getRootPath+'/gis/map/index.js');
+    seajs.use(ctx+'/gis/map/index.js');
 </script>
  
 </head>
@@ -231,16 +231,5 @@
     </div>
 </div>
    
-</body>
- <script>
-(function(){
-    //计算地图高度
-    function getMapHeight(){
-        //var height=$(window).height()-$('#header').outerHeight(true);
-        var height=$(window).height();
-        $('.map_box').css('height',height);
-    }
-    getMapHeight();   
-})();
-</script> 
+</body> 
 </html>

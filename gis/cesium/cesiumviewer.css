@@ -123,7 +123,7 @@
     top: 245px;
     right: 60px;
     z-index: 1006;*/
-    background: #0f161c;
+    background: #5694dd;
     font-family: "宋体";
     font-size: 13px;
 }
@@ -174,9 +174,9 @@
 .fly3DPaths{
     position: absolute;
     right: 80px;
-    top: 20px;
+    top: 100px;
     z-index: 888;
-    background: rgba(0,0,0,0.7);
+    background: #3c8dbc8a;
     /*height: 80%;*/
     width: 400px;
     padding-bottom: 15px;

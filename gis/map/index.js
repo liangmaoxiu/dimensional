@@ -28,12 +28,14 @@ define(function (require, exports, module) {
             $(".window-left").removeClass('fold');
             $("#back").removeClass('iconicon-test').addClass('iconshuangjiantouzuo');
             // 收起之后将右侧的宽度增加
-            $("#cesiumMap").removeClass('col-lg-11').addClass('col-lg-10');
+            $("#left").css("width","15%");
+            $("#cesiumMap").css("width","85%");
         }else{
             $(".window-left").animate({width:"60px"},300,'swing');
             $(".window-left").addClass('fold');
             $("#back").removeClass('iconshuangjiantouzuo').addClass('iconicon-test');
-            $("#cesiumMap").removeClass('col-lg-10').addClass('col-lg-11');
+            $("#left").css("width","5%");
+            $("#cesiumMap").css("width","95%");
         }
     })
     var Map3d = require('./cesiumap');

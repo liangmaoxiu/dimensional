@@ -12,15 +12,6 @@ define(function (require, exports, module) {
         cesium.hideMapLogo();
         //添加导航指北针
         cesium.cesiumViewer.extend(Cesium.viewerCesiumNavigationMixin, {defaultResetView:cesium.defaultResetView});
-        // //加载地形图（地貌）
-        // $("#cesiumTerrain").click(function(){
-        //     if($(this).attr("class").indexOf("selected") != -1){
-        //         cesium.addTerrainLayer(MapConfig.terrainObj);
-        //     }else{
-        //         cesium.romoveTerrainLayer();
-        //     }
-        // });
-        //cesium.addTerrainLayer(MapConfig.terrainObj);
         //底图切换
         cesium.loadSwitcherMap(MapConfig.mapInitParams.imageryViewModels);
         //显示图层控制器（图层管理器）
@@ -141,7 +132,7 @@ define(function (require, exports, module) {
         });
         // 标绘
         $("#cesiumDrawToolbar").click(function(){
-            if($(this).attr("class").indexOf("selected") != -1){
+            if($(this).attr("class").indexOf("active") != -1){
                 $("#toolbar").show();
             }else{
                 $("#toolbar").hide();
@@ -225,9 +216,16 @@ define(function (require, exports, module) {
             }
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
         //飞行路径模块部分
+        var showOrHide=true;
         $("#cesiumFly3DPaths").click(function(){
-            if($(this).attr("class").indexOf("selected") != -1){
-                $(".fly3DPaths").show();
+            if($(this).attr("class").indexOf("active") != -1){
+                if(showOrHide){
+                    $(".fly3DPaths").show();
+                    showOrHide=false;
+                }else{
+                    $(".fly3DPaths").hide();
+                    showOrHide=true;
+                }
             }else{
                 $(".fly3DPaths").hide();
             }

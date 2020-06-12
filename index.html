@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo</title>
     <!--引入样式和js文件--> 
+    <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
+    <!--对话框-->
+    <link rel='stylesheet' href="lib/jqueryDialog/jDialog/jDialog.css"/>
+    <script src="lib/jqueryDialog/jDialog/jquery.drag.js" type='text/javascript'></script>
+    <script src="lib/jqueryDialog/jDialog/jquery.mask.js" type='text/javascript'></script>
+    <script src="lib/jqueryDialog/jDialog/jquery.dialog.js" type='text/javascript'></script> 
+    <!--Ztree控件 使用Json格式保存了树的所有信息-->
+    <link href="lib/JQueryZTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="lib/JQueryZTree/js/jquery.ztree.all-3.5.min.js"></script>
     <link href="gis/map/css/bootstrap.min.css" rel="stylesheet">
     <link href="gis/map/css/index.css" rel="stylesheet">
     <!--引入iconfont样式-->
@@ -13,21 +22,17 @@
     <link href="gis/cesium/cesiumviewer.css" rel="stylesheet" type="text/css" />
     <link href="gis/cesium/cesium-api-1.52/Widgets/widgets.css" rel="stylesheet" type="text/css" />
     <link href="gis/cesium/DrawHelper.css" rel="stylesheet" type="text/css" />
-
     <!-- 地图css -->
     <link href="gis/map/res/css/mapcss.css" rel="stylesheet" type="text/css"></link>
     <link href="gis/map/css/map.css" rel="stylesheet" type="text/css"></link>
     <link href="gis/map/res/css/bxmap.css" rel="stylesheet" type="text/css"></link>
-    <!--Ztree控件 使用Json格式保存了树的所有信息-->
-    <link href="lib/JQueryZTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css"/>
-    <!--对话框-->
-    <link rel='stylesheet' href="lib/jqueryDialog/jDialog/jDialog.css"/>
-    <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
+   
+    <!--引入滚动条-->
+    <link href="lib/jquerymCustomScrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css"></link>
     <script type="text/javascript" src="gis/map/bootstrap.min.js"></script>
-    <script src="lib/jqueryDialog/jDialog/jquery.drag.js" type='text/javascript'></script>
-    <script src="lib/jqueryDialog/jDialog/jquery.mask.js" type='text/javascript'></script>
-    <script src="lib/jqueryDialog/jDialog/jquery.dialog.js" type='text/javascript'></script>
-    <script type="text/javascript" src="lib/JQueryZTree/js/jquery.ztree.all-3.5.min.js"></script>
+   <script type="text/javascript" src="lib/jquerymCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="lib/jquerymCustomScrollbar/jquery.mousewheel.js"></script>
+      
     <!--Seajs是一个加载器,遵循 CMD 规范模块化开发，依赖的自动加载、配置的简洁清晰--> 
     <script type="text/javascript" src="lib/seajs/sea.js"></script>
     <script type="text/javascript" src="lib/seajs/seajs-text.js"></script>
@@ -90,7 +95,7 @@
             </div>
         </div>
         <div id="div-content"  style="height:90%;width:100%;">
-            <div id="left"  style="background-color: #3c8dbc;height:800px;float:left;">
+            <div id="left" style="background-color: #3c8dbc;height:800px;float:left;width:15%;">
                 <div class="window-left">
                     <div class="go-back">
                         <a >
@@ -100,20 +105,26 @@
                     <div class="menu-list">
                         <ul>
                             <li id="cesiumMapFull" class="first-menu">
-                                <a href="javascript:;"><i class="iconfont iconfuwei"></i></a>
+                                <a> 
+                                    <i class="iconfont iconfuwei"></i>
+                                </a>
                                 <span class="hover-tit">复位</span>
                             </li>
                             <li id="cesium3DLayers" class="first-menu">
-                                <a href="javascript:;"><i class="iconfont icontuceng"></i></a>
+                                <a>
+                                    <i class="iconfont icontuceng"></i>
+                                </a>
                                 <span class="hover-tit">图层管理</span>
-                                <ul class="map_toolbar_list_more">
+                                <ul class="map_toolbar_list_more" style="width: 200px;top: 35%;">
                                     <div class="syn3D">
                                         <div id="LayerTree" style="width:150px;"><ul id="ztreeThemeServerOfLayer" class="ztree"></ul></div>
                                     </div>
                                 </ul>
                             </li>
                             <li class="first-menu">
-                                <a href="javascript:;"><i class="iconfont iconsousuo-baise"></i></a>
+                                <a>
+                                    <i class="iconfont iconsousuo-baise"></i>
+                                </a>
                                 <span class="hover-tit">搜索</span>
                                 <ul>
                                     <li class="second-menu">
@@ -122,8 +133,10 @@
                                 </ul>
                             </li>
                             <li class="first-menu">
-                                <a href="javascript:;"><i class="iconfont iconkongjianfenxi"></i></a>
-                                <span class="hover-tit">空间分析</span>
+                                <a>
+                                    <i class="iconfont iconkongjianfenxi"></i>
+                                </a>
+                                 <span class="hover-tit">空间分析</span>
                                 <ul>
                                     <li class="second-menu">
                                         <a href="javascript:;">视频分析</a>
@@ -134,14 +147,18 @@
                                 </ul>
                             </li>
                             <li id="cesiumDrawToolbar" class="first-menu">
-                                <a href="javascript:;"><i class=" iconfont iconbiaohui"></i></a>
+                                <a>
+                                    <i class=" iconfont iconbiaohui"></i>
+                                </a>
                                 <span class="hover-tit">标绘</span>
-                                <ul class="map_toolbar_list_more" style="width:150px;">
+                                <ul class="map_toolbar_list_more" style="width:150px;top:40%;">
                                     <div id="toolbar" class="cesium_toolbar"></div>
                                 </ul>
                             </li>
                             <li class="first-menu">
-                                <a href="javascript:;"><i class="iconfont iconmoxing"></i></a>
+                                <a>
+                                    <i class="iconfont iconmoxing"></i>
+                                </a>
                                 <span class="hover-tit">模型</span>
                                 <ul>
                                     <li id="cesium3DModel" class="second-menu">
@@ -153,16 +170,20 @@
                                 </ul>
                             </li>
                             <li  id="cesium3DLocation" class="first-menu">
-                                <a href="javascript:;"><i class="iconfont icondingwei-baise-"></i></a>
-                                <span class="hover-tit">热点定位器</span>
-                                <ul class="map_toolbar_list_more">
+                                <a>
+                                    <i class="iconfont icondingwei-baise-"></i>
+                                </a>
+                                 <span class="hover-tit">热点定位器</span>
+                                <ul class="map_toolbar_list_more" style="width:150px;top:75%;left:180px;background-color:#0000000a">
                                     <div class="syn_location3D">
                                         <div class="syn_con3D"><div class="pub_syn3D"><div class="pub_syn_rt3D"></div></div></div>
                                     </div>
                                 </ul>
                             </li>
                             <li id="cesiumFly3DPaths" class="first-menu">
-                                <a href="javascript:;"><i class="iconfont iconic_normal_fly"></i></a>
+                                <a>
+                                    <i class="iconfont iconic_normal_fly"></i>
+                                </a>
                                 <span class="hover-tit">飞行</span>
                             </li>
                         </ul>
@@ -170,8 +191,66 @@
                 </div>
             </div>
             <!--显示地图的地方-->
-            <div id="cesiumMap" class="col-lg-10" style="height:800px;float:left;"></div>
+            <div id="cesiumMap"  style="height:800px;float:left;width:85%;"></div>
+            <!--三维飞行漫游菜单界面-->
+                    <div class="fly3DPaths">
+                        <div class="fly3DPaths_title">操作菜单</div>
+                        <!--新增-->
+                        <!-- tab导航部分 -->
+                        <div class='fly3DPaths_tab'>
+                            <ul style='margin-left:0px;' class="fly3DPaths_tab_ul">
+                                <li id='overFlyClick' class="select"><span><span class='flss'></span><a href='javascript:void(0)'>预设路线</a></span></li>
+                                <li id='drawFlyCilck'><span><span class='flss'></span><a href='javascript:void(0);'>手动绘制</a></span></li>
+                            </ul>
+                        </div>
+                        <!-- tab内容部分 -->
+                        <!-- 预设路线 -->
+                        <div id='overFlyPage' style='height: 100%;'>
+                            <div style="padding: 5px;margin-top: 5px;">
+                                <div class='ydph-table-wrap'>
+                                    <div class='ydph-talbe-head'>
+                                        <table id='overFly_table' style='width:272px;'>
+                                            <thead>
+                                            <tr>
+                                                <!--<th class='colspan1'><input type='checkbox' onchange=''/></th>-->
+                                                <th class='colspan4'>名称</th>
+                                                <th class='colspan2'>操作</th>
+                                                <th class='colspan2'>修改</th>
+                                                <th class='colspan2'>删除</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 手动绘制 -->
+                        <div id='drawFlyPage' style='height: 100%; display:none'>
+                            <div class="fly3DPaths_content">
+                                <input id="start_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="开始飞行">
+                                <input id="pause_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="暂停飞行">
+                                <input id="playForward_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向前飞行">
+                                <input id="playReverse_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向后飞行">
+                                <input id="draw_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="设定路线">
+                                <input id="save_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="保存路线">
+                                <input id="clear_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="清空路线">
+                                <input id="stop_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="退出飞行">
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 </body>
+<script>
+    (function(){
+        //计算地图高度
+        function getMapHeight(){
+            var height=$(window).height();
+            $('.map_box').css('height',height);
+        }
+        getMapHeight();   
+    })();
+    </script> 
 </html>

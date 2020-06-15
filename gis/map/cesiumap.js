@@ -15,13 +15,59 @@ define(function (require, exports, module) {
         //底图切换
         cesium.loadSwitcherMap(MapConfig.mapInitParams.imageryViewModels);
         //显示图层控制器（图层管理器）
+        var showOrHideLay=true;
         $("#cesium3DLayers").click(function(){
-            cesium.show3DLayers(MapConfig.Layers);
+            if($(this).attr("class").indexOf("active") != -1){
+                if(showOrHideLay){
+                    $(".syn3D").css("display","block");
+                    //加载图层控制器
+                    cesium.show3DLayers(MapConfig.Layers);
+                    // 方法处理完之后重新加载
+                    cesium.isLoad3DLayers=false;
+                    showOrHideLay=false;
+                }else{
+                    $(".syn3D").css("display","none");
+                    showOrHideLay=true;
+                }
+            }else{
+                $(".syn3D").css("display","none");
+            }
         });
+        // 图层管理器 鼠标放上之后的样式 in out 
+        $("#cesium3DLayers").hover(function(){
+            if($(".window-left").hasClass('fold')){
+                $(".syn3D").css("display","none");
+            }
+        },function(){
+            $(".syn3D").css("display","none");
+        });
+        // 热点定位器 鼠标放上之后的样式 in out 
+        $("#cesium3DLocation").hover(function(){
+            if($(".window-left").hasClass('fold')){
+                $(".syn_location3D").css("display","none");
+            }
+        },function(){
+            $(".syn_location3D").css("display","none");
+        });
+       
         //显示地图热点定位器
+        var showOrHideHot=true;
         $("#cesium3DLocation").click(function(){
-            //加载地图热点定位器
-            cesium.show3DLocator(MapConfig.locations);
+            if($(this).attr("class").indexOf("active") != -1){
+                if(showOrHideHot){
+                    $(".syn_location3D").css("display","block");
+                    //加载地图热点定位器
+                    cesium.show3DLocator(MapConfig.locations);
+                    // 方法处理完之后重新加载
+                    cesium.isLoadLocation=false;
+                    showOrHideHot=false;
+                }else{
+                    $(".syn_location3D").css("display","none");
+                    showOrHideHot=true;
+                }
+            }else{
+                $(".syn_location3D").css("display","none");
+            }
         });
 		//清空地图
         $("#cesiumClearData").click(function(){
@@ -131,9 +177,19 @@ define(function (require, exports, module) {
             });
         });
         // 标绘
+        var showOrHideHotPlot=true;
         $("#cesiumDrawToolbar").click(function(){
             if($(this).attr("class").indexOf("active") != -1){
-                $("#toolbar").show();
+                if(showOrHideHotPlot){
+                    $("#toolbar").show();
+                    $(".map_toolbar_list_more").addClass("plotting");
+                    $("#toolbar").css("display","block");
+                    showOrHideHotPlot=false;
+                }else{
+                    $("#toolbar").hide();
+                    $("#toolbar").css("display","none");
+                    showOrHideHotPlot=true;
+                }
             }else{
                 $("#toolbar").hide();
             }
@@ -216,15 +272,15 @@ define(function (require, exports, module) {
             }
         }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
         //飞行路径模块部分
-        var showOrHide=true;
+        var showOrHideFly=true;
         $("#cesiumFly3DPaths").click(function(){
             if($(this).attr("class").indexOf("active") != -1){
-                if(showOrHide){
+                if(showOrHideFly){
                     $(".fly3DPaths").show();
-                    showOrHide=false;
+                    showOrHideFly=false;
                 }else{
                     $(".fly3DPaths").hide();
-                    showOrHide=true;
+                    showOrHideFly=true;
                 }
             }else{
                 $(".fly3DPaths").hide();

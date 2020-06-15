@@ -91,6 +91,7 @@
                     <li id="cesium3DSlider" style="float:right;"><span class="iconfont iconjuanlian"></span>卷帘</li>
                     <li id="measureArea" style="float:right;"><span class="iconfont iconcemian"></span>测面</li>
                     <li id="measureDistance" style="float:right;"><span class="iconfont iconceju"></span>测距</li>
+                    <li id="cesiumMapFull" style="float:right;"><span class="iconfont iconfuwei"></span>复位</li>
                 </ul>
             </div>
         </div>
@@ -104,32 +105,24 @@
                     </div>
                     <div class="menu-list">
                         <ul>
-                            <li id="cesiumMapFull" class="first-menu">
-                                <a> 
-                                    <i class="iconfont iconfuwei"></i>
-                                </a>
-                                <span class="hover-tit">复位</span>
-                            </li>
                             <li id="cesium3DLayers" class="first-menu">
                                 <a>
                                     <i class="iconfont icontuceng"></i>
                                 </a>
                                 <span class="hover-tit">图层管理</span>
-                                <ul class="map_toolbar_list_more" style="width: 200px;top: 35%;">
+                                <ul class="map_toolbar_list_more layer" >
                                     <div class="syn3D">
-                                        <div id="LayerTree" style="width:150px;"><ul id="ztreeThemeServerOfLayer" class="ztree"></ul></div>
+                                        <ul id="ztreeThemeServerOfLayer" class="ztree" style=" padding-top: 15px;padding-bottom:15px;"></ul>
                                     </div>
                                 </ul>
                             </li>
-                            <li class="first-menu">
+                            <li id="cesiumDrawToolbar" class="first-menu">
                                 <a>
-                                    <i class="iconfont iconsousuo-baise"></i>
+                                    <i class=" iconfont iconbiaohui"></i>
                                 </a>
-                                <span class="hover-tit">搜索</span>
-                                <ul>
-                                    <li class="second-menu">
-                                        <a href="javascript:;">属性搜索</a>
-                                    </li>
+                                <span class="hover-tit">标绘</span>
+                                <ul class="map_toolbar_list_more plotting" >
+                                    <div id="toolbar" class="cesium_toolbar"></div>
                                 </ul>
                             </li>
                             <li class="first-menu">
@@ -137,7 +130,7 @@
                                     <i class="iconfont iconkongjianfenxi"></i>
                                 </a>
                                  <span class="hover-tit">空间分析</span>
-                                <ul>
+                                <ul class="fold-li">
                                     <li class="second-menu">
                                         <a href="javascript:;">视频分析</a>
                                     </li>
@@ -146,13 +139,30 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li id="cesiumDrawToolbar" class="first-menu">
+                            <li  id="cesium3DLocation" class="first-menu">
                                 <a>
-                                    <i class=" iconfont iconbiaohui"></i>
+                                    <i class="iconfont icondingwei-baise-"></i>
                                 </a>
-                                <span class="hover-tit">标绘</span>
-                                <ul class="map_toolbar_list_more" style="width:150px;top:40%;">
-                                    <div id="toolbar" class="cesium_toolbar"></div>
+                                 <span class="hover-tit">热点定位器</span>
+                                <ul class="map_toolbar_list_more hot" >
+                                    <div class="syn_location3D">
+                                        <div class="syn_con3D">
+                                            <div class="pub_syn3D">
+                                                <div class="pub_syn_rt3D"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ul>
+                            </li>
+                            <li class="first-menu">
+                                <a>
+                                    <i class="iconfont iconsousuo-baise"></i>
+                                </a>
+                                <span class="hover-tit">搜索</span>
+                                <ul class="fold-li">
+                                    <li class="second-menu">
+                                        <a href="javascript:;">属性搜索</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="first-menu">
@@ -160,24 +170,13 @@
                                     <i class="iconfont iconmoxing"></i>
                                 </a>
                                 <span class="hover-tit">模型</span>
-                                <ul>
+                                <ul class="fold-li">
                                     <li id="cesium3DModel" class="second-menu">
                                         <a href="javascript:;">3D</a>
                                     </li>
                                     <li id="cesium3DTiles" class="second-menu">
                                         <a href="javascript:;">倾斜</a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li  id="cesium3DLocation" class="first-menu">
-                                <a>
-                                    <i class="iconfont icondingwei-baise-"></i>
-                                </a>
-                                 <span class="hover-tit">热点定位器</span>
-                                <ul class="map_toolbar_list_more" style="width:150px;top:75%;left:180px;background-color:#0000000a">
-                                    <div class="syn_location3D">
-                                        <div class="syn_con3D"><div class="pub_syn3D"><div class="pub_syn_rt3D"></div></div></div>
-                                    </div>
                                 </ul>
                             </li>
                             <li id="cesiumFly3DPaths" class="first-menu">

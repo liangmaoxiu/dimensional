@@ -140,7 +140,7 @@ a, a:hover, a:focus {
     background-color: #3375A1;
     color: #fff;
     cursor: Default;
-    z-index:113;
+    z-index:112;
 }
 .window-left.fold .menu-list ul li.first-menu:hover{
     background-color: #3375A1;
@@ -153,15 +153,24 @@ a, a:hover, a:focus {
     display: block!important;
     position: absolute;
     width: 180px;
-    top:50px;
-    left: 60px;
-    z-index:114;
+    z-index:112;
     background-color: rgb(60, 141, 188);
 }
+ .plotting{
+    width:150px;
+    top:40%;
+    left: 120x;  
+}
 .window-left.fold .menu-list ul li.first-menu:hover ul li{
-    height: 53px;
+    height: 20px;
     /* border-top: 1px solid #709cb9f7; */
 }
+.window-left.fold .fold-li{
+    left: 60px;
+    top:50px;
+    height:50px;
+}
+
 .window-left.fold .menu-list ul li.first-menu:hover ul li a{
     width: 100%;
     /*文本不换行*/
@@ -191,5 +200,27 @@ a, a:hover, a:focus {
     padding-left: 20px;
     font-size:16px;
     color: #fff;
-    z-index:113;
+    z-index:112;
+    /* padding: 12px 0 12px 55px; */
+    background-color: rgb(60, 141, 188);
+}
+.window-left.fold .menu-list ul li.first-menu ul li.second-menu{
+    height:50px;
+}
+/*菜单收缩之后进行相应的样式显示*/
+.window-left.fold .hot{
+    top:1%;
+    left:180px;
+}
+/*热点管理*/
+.hot{
+    width:150px;
+    top:50%;
+    left:230px;
+    background-color:#0000000a;
+}
+/*图层管理*/
+.layer{
+    width: 180px;
+    top: 30%;
 }

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>球体视频播放</title>
+    <!--cesium三维GIS部分样式-->
+    <link href="gis/cesium/cesiumviewer.css" rel="stylesheet" type="text/css" />
+    <link href="gis/cesium/cesium-api-1.52/Widgets/widgets.css" rel="stylesheet" type="text/css" />
+    <!--引入样式和js文件--> 
+    <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="gis/cesium/cesium-api-1.52/Cesium.js"></script>
+    <script src="gis/cesium/cesiumviewer.js"></script>
+    <style>
+        #trailer {
+            position: absolute;
+            bottom: 10px;
+            /* top:10px; */
+            right: 15px;
+            width: 320px;
+            height: 180px;
+        }
+    </style>
+</head>
+<body>
+<div >
+    <button onclick="ImgRepeat()">Image Repeat</button>
+    <button onclick="Overlay()">Video Overlay</button>
+<div>
+<div id="cesiumContainer" class="fullSize"></div>
+<div id="toolbar">
+    <video id="trailer" muted autoplay loop crossorigin controls>
+        <source src="video/girl.webm"  type="video/webm">
+        <source src="video/girl.mp4"  type="video/mp4">
+        <source src="video/girl.mov"  type="video/quicktime">
+        Your browser does not support the <code>video</code> element.
+    </video>
+</div>
+</body>
+
+<script>
+   Cesium.Ion.defaultAccessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzZmQ1MTJiZC03NmFmLTQ0YzMtYjAwMS1iNTQ3ZDBkNmU2ODgiLCJpZCI6Mjg4MDUsInNjb3BlcyI6WyJhc'+
+        '2wiLCJhc3IiLCJhc3ciLCJnYyIsInByIl0sImlhdCI6MTU5MTU4NzY0Mn0.9pVXyPhcRF9lax5CPChENS_pof73mT8Aexbfb4CB5PY';
+        var viewer = new Cesium.Viewer('cesiumContainer',{
+        //需要进行可视化的数据源的集合
+        showRenderLoopErrors: false,
+        animation: false, //是否显示动画控件
+        shouldAnimate : true,
+        homeButton: false, //是否显示Home按钮
+        fullscreenButton: false, //是否显示全屏按钮
+        baseLayerPicker: false , //是否显示图层选择控件
+        geocoder: false, //是否显示地名查找控件
+        timeline: false, //是否显示时间线控件
+        sceneModePicker: false, //是否显示投影方式控件
+        navigationHelpButton: false, //是否显示帮助信息控件
+        infoBox: false, //是否显示点击要素之后显示的信息
+        requestRenderMode: true, //启用请求渲染模式
+        scene3DOnly: false, //每个几何实例将只能以3D渲染以节省GPU内存
+        sceneMode: 3, //初始场景模式 1 2D模式 2 2D循环模式 3 3D模式  Cesium.SceneMode
+        fullscreenElement: document.body, //全屏时渲染的HTML元素 暂时没发现用处
+
+    });
+    var videoElement = document.getElementById("trailer");
+    var sphere = viewer.entities.add({
+        position: Cesium.Cartesian3.fromDegrees(-79, 39, 1000),
+        ellipsoid: {
+            radii: new Cesium.Cartesian3(1000, 1000, 1000),
+            material: videoElement,
+        },
+    });
+    viewer.trackedEntity = sphere;
+
+    // var synchronizer;
+    // Sandcastle.addToggleButton("Clock synchronization", false, function (checked) {
+    // // By default, the video plays normally and simply shows
+    // // whatever frame the video is currently on.
+    // // We can synchronize the video with the scene clock
+    // // using a VideoSynchronizer.
+
+    //     if (Cesium.defined(synchronizer)) {
+    //         synchronizer = synchronizer.destroy();
+    //         videoElement.playbackRate = 1.0;
+    //         return;
+    //     }
+    //     synchronizer = new Cesium.VideoSynchronizer({
+    //         clock: viewer.clock,
+    //         element: videoElement,
+    //     });
+    // });
+
+    // Since it's just an image material, we can modify the number
+    // of times the video repeats in each direction..
+    // var isRepeating = true;
+    // Sandcastle.addToggleButton("Image Repeat", isRepeating, function (
+    // checked ) {isRepeating = checked;});
+
+    // sphere.ellipsoid.material.repeat = new Cesium.CallbackProperty(
+    // function (time, result) {
+    //     if (!Cesium.defined(result)) {
+    //     result = new Cesium.Cartesian2();
+    //     }
+    //     if (isRepeating) {
+    //     result.x = 8;
+    //     result.y = 8;
+    //     } else {
+    //     result.x = 1;
+    //     result.y = 1;
+    //     }
+    //     return result;
+    // },
+    // false
+    // );
+
+    // Like Image, the video element doesn't have to be part of the DOM or
+    // otherwise on the screen to be used as a texture.
+    // Sandcastle.addToggleButton("Video Overlay", true, function (checked) {
+    // if (checked) {
+    //     videoElement.style.display = "";
+    // } else {
+    //     videoElement.style.display = "none";
+    // }
+    // });
+
+    // Older browsers do not support WebGL video textures,
+    // put up a friendly error message indicating such.
+    viewer.scene.renderError.addEventListener(function () {
+        if (!videoElement.paused) {
+            videoElement.pause();
+        }
+        viewer.cesiumWidget.showErrorPanel(
+            "This browser does not support cross-origin WebGL video textures.",
+            "",
+            ""
+        );
+    });
+    // 球体是否重复
+    var isRepeating = false;
+    function ImgRepeat(){
+        var property = new Cesium.CallbackProperty(
+        function (time, result) {
+            if (!Cesium.defined(result)) {
+                result = new Cesium.Cartesian2();
+            }
+            if (isRepeating) {
+                result.x = 8;
+                result.y = 8;
+            } 
+            else 
+            {
+                result.x = 1;
+                result.y = 1;
+            }
+            return result;
+        }, false);
+        // 实现开关模式
+        if(isRepeating){
+            isRepeating=false;
+        }else{
+            isRepeating=true;
+        }
+        sphere.ellipsoid.material.repeat = property;
+
+    }
+
+    // video小窗口是否展示
+    var checked=false;
+    function Overlay(){
+        if (checked) 
+        {
+            videoElement.style.display = "";
+            checked =false;
+        } 
+        else 
+        {
+            videoElement.style.display = "none";
+            checked =true;
+        }
+    }
+</script>
+</html>

@@ -80,7 +80,11 @@ CesiumViewer = DObject({
         //pDiv = document.getElementById(divId);
         this.spatialReferenceWkid = options.mapInitParams.spatialReference.wkid;
         this.cesiumViewer = new Cesium.Viewer(divId, {
-            animation:false, //动画控制，默认true
+            animation:false, //是否显示动画控件，默认true
+            shouldAnimate : true,
+            requestRenderMode: true, //启用请求渲染模式
+            scene3DOnly: false, //每个几何实例将只能以3D渲染以节省GPU内存
+            sceneMode: 3 ,//初始场景模式 1 2D模式 2 2D循环模式 3 3D模式  Cesium.SceneMode
             baseLayerPicker:false,//地图切换控件(底图以及地形图)是否显示,默认显示true
             fullscreenButton:false,//全屏按钮,默认显示true
             geocoder:false,//地名查找,默认true

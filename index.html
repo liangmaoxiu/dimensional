@@ -192,53 +192,57 @@
             <!--显示地图的地方-->
             <div id="cesiumMap"  style="height:800px;float:left;width:85%;"></div>
             <!--三维飞行漫游菜单界面-->
-                    <div class="fly3DPaths">
-                        <div class="fly3DPaths_title">操作菜单</div>
-                        <!--新增-->
-                        <!-- tab导航部分 -->
-                        <div class='fly3DPaths_tab'>
-                            <ul style='margin-left:0px;' class="fly3DPaths_tab_ul">
-                                <li id='overFlyClick' class="select"><span><span class='flss'></span><a href='javascript:void(0)'>预设路线</a></span></li>
-                                <li id='drawFlyCilck'><span><span class='flss'></span><a href='javascript:void(0);'>手动绘制</a></span></li>
-                            </ul>
-                        </div>
-                        <!-- tab内容部分 -->
-                        <!-- 预设路线 -->
-                        <div id='overFlyPage' style='height: 100%;'>
-                            <div style="padding: 5px;margin-top: 5px;">
-                                <div class='ydph-table-wrap'>
-                                    <div class='ydph-talbe-head'>
-                                        <table id='overFly_table' style='width:272px;'>
-                                            <thead>
-                                            <tr>
-                                                <!--<th class='colspan1'><input type='checkbox' onchange=''/></th>-->
-                                                <th class='colspan4'>名称</th>
-                                                <th class='colspan2'>操作</th>
-                                                <th class='colspan2'>修改</th>
-                                                <th class='colspan2'>删除</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 手动绘制 -->
-                        <div id='drawFlyPage' style='height: 100%; display:none'>
-                            <div class="fly3DPaths_content">
-                                <input id="start_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="开始飞行">
-                                <input id="pause_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="暂停飞行">
-                                <input id="playForward_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向前飞行">
-                                <input id="playReverse_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向后飞行">
-                                <input id="draw_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="设定路线">
-                                <input id="save_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="保存路线">
-                                <input id="clear_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="清空路线">
-                                <input id="stop_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="退出飞行">
+            <div class="fly3DPaths">
+                <div class="fly3DPaths_title">操作菜单</div>
+                <!--新增-->
+                <!-- tab导航部分 -->
+                <div class='fly3DPaths_tab'>
+                    <ul style='margin-left:0px;' class="fly3DPaths_tab_ul">
+                        <li id='overFlyClick' class="select"><span><span class='flss'></span><a href='javascript:void(0)'>预设路线</a></span></li>
+                        <li id='drawFlyCilck'><span><span class='flss'></span><a href='javascript:void(0);'>手动绘制</a></span></li>
+                    </ul>
+                </div>
+                <!-- tab内容部分 -->
+                <!-- 预设路线 -->
+                <div id='overFlyPage' style='height: 100%;'>
+                    <div style="padding: 5px;margin-top: 5px;">
+                        <div class='ydph-table-wrap'>
+                            <div class='ydph-talbe-head'>
+                                <table id='overFly_table' style='width:272px;'>
+                                    <thead>
+                                    <tr>
+                                        <!--<th class='colspan1'><input type='checkbox' onchange=''/></th>-->
+                                        <th class='colspan4'>名称</th>
+                                        <th class='colspan2'>操作</th>
+                                        <th class='colspan2'>修改</th>
+                                        <th class='colspan2'>删除</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
+                </div>
+                <!-- 手动绘制 -->
+                <div id='drawFlyPage' style='height: 100%; display:none'>
+                    <div class="fly3DPaths_content">
+                        <input id="start_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="开始飞行">
+                        <input id="pause_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="暂停飞行">
+                        <input id="playForward_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向前飞行">
+                        <input id="playReverse_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="向后飞行">
+                        <input id="draw_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="设定路线">
+                        <input id="save_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="保存路线">
+                        <input id="clear_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="清空路线">
+                        <input id="stop_Fly3DPaths" class="fly3DPaths_model_id" type="button"  value="退出飞行">
+                    </div>
+                </div>
+            </div>
+            <!--视频播放-->
+            <video id="video"style="display: none" muted autoplay loop crossorigin controls>
+                <source src="video/girl.mp4" type="video/mp4">
+            </video>
         </div>
     </div>
 </body>

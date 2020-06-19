@@ -77,12 +77,12 @@
 .map3D-coordinates{
     z-index: 888;
     position: absolute;
-    bottom: 1px;
+    bottom: 240px;
     /*width: 250px;*/
     height: auto;
     overflow: hidden;
     text-align: center;
-    left: 10px;
+    right: 10px;
     height: 29px;
     line-height: 29px;
     /* background: #303336; */

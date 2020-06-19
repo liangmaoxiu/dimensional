@@ -80,6 +80,9 @@ CesiumViewer = DObject({
         //pDiv = document.getElementById(divId);
         this.spatialReferenceWkid = options.mapInitParams.spatialReference.wkid;
         this.cesiumViewer = new Cesium.Viewer(divId, {
+            showRenderLoopErrors: false,
+            sceneModePicker: false, //是否显示投影方式控件
+            fullscreenElement: document.body, //全屏时渲染的HTML元素
             animation:false, //是否显示动画控件，默认true
             shouldAnimate : true,
             requestRenderMode: true, //启用请求渲染模式
@@ -166,8 +169,7 @@ CesiumViewer = DObject({
                 this.cesiumViewer._baseLayerPickerDropDown.childNodes[2].style.display = "none";
             }
         }
-        var handler3D = new Cesium.ScreenSpaceEventHandler(
-            viewer.scene.canvas);
+        var handler3D = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
         handler3D.setInputAction(function(movement) {
             if(document.getElementById(cesium.mapDivId).style.display=="none"){//三维地图不可见情况下
                 return;

@@ -4,18 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo</title>
+    <style>
+            #trailer {
+            position: absolute;
+            top: 80px;
+            right: 10px;
+            width: 220px;
+            height: 150px;
+            z-index:-112;
+        }
+    </style>
     <!--引入样式和js文件--> 
     <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
-    <!--对话框-->
+    <!-- 对话框 -->
     <link rel='stylesheet' href="lib/jqueryDialog/jDialog/jDialog.css"/>
-    <script src="lib/jqueryDialog/jDialog/jquery.drag.js" type='text/javascript'></script>
-    <script src="lib/jqueryDialog/jDialog/jquery.mask.js" type='text/javascript'></script>
+    <link href="favicon.ico" rel="shortcut icon">
+    <script src="lib/jqueryDialog/jDialog/jquery.drag.js" type='text/javascript'></script> 
+    <script src="lib/jqueryDialog/jDialog/jquery.mask.js" type='text/javascript'></script> 
     <script src="lib/jqueryDialog/jDialog/jquery.dialog.js" type='text/javascript'></script> 
     <!--Ztree控件 使用Json格式保存了树的所有信息-->
     <link href="lib/JQueryZTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="lib/JQueryZTree/js/jquery.ztree.all-3.5.min.js"></script>
     <link href="gis/map/css/bootstrap.min.css" rel="stylesheet">
-    <link href="gis/map/css/index.css" rel="stylesheet">
+    <link href="gis/map/css/index.css" rel="stylesheet"> 
     <!--引入iconfont样式-->
     <link href="iconfont/iconfont.css" rel="stylesheet">
     <!--cesium三维GIS部分样式-->
@@ -30,12 +41,12 @@
     <!--引入滚动条-->
     <link href="lib/jquerymCustomScrollbar/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css"></link>
     <script type="text/javascript" src="gis/map/bootstrap.min.js"></script>
-   <script type="text/javascript" src="lib/jquerymCustomScrollbar/jquery.mCustomScrollbar.js"></script>
-    <script type="text/javascript" src="lib/jquerymCustomScrollbar/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="lib/jquerymCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+    <script type="text/javascript" src="lib/jquerymCustomScrollbar/jquery.mousewheel.js"></script> 
       
     <!--Seajs是一个加载器,遵循 CMD 规范模块化开发，依赖的自动加载、配置的简洁清晰--> 
     <script type="text/javascript" src="lib/seajs/sea.js"></script>
-    <script type="text/javascript" src="lib/seajs/seajs-text.js"></script>
+    <script type="text/javascript" src="lib/seajs/seajs-text.js"></script> 
     <!--gis相关的js文件 -->
     <!-- 获取当前路径等公共资源-->
     <script src="gis/cesium/utils.js"></script>
@@ -59,14 +70,14 @@
             domainRest : getRootPath(), //rest 接口域名
             domainResource : getRootPath() //资源服务器域名
         }
- </script>
+    </script>
     <!--Cesium.js-->
     <script src="gis/cesium/cesium-api-1.52/Cesium.js"></script>
     <script src="gis/cesium/cesiumviewer.js"></script>
     <!--它是一个绘制基本点线面图形的工具，自带了UI-->
     <script src="gis/cesium/DrawHelper.js"></script>
     <!--因为Cesium导航查看器mixin依赖于铯，所以一定要在cesium之后加载它 -->
-    <script src="gis/cesium/viewerCesiumNavigationMixin.js"></script>
+    <script src="gis/cesium/viewerCesiumNavigationMixin.js"></script> 
     <!--配置文件-->
     <script src="gis/cesium/mapconfig.js"></script>
     <!--坐标转换的方法-->
@@ -77,11 +88,17 @@
     <script type="text/javascript" src="gis/map/BaseLayerSwitcherToolBar.js"></script>
     <!--三维漫游飞行-->
     <script type="text/javascript" src="gis/map/flycesium.js"></script>
-    <script>
+     <script>
         seajs.use(getRootPath()+'/gis/map/index.js');
-    </script>
+    </script> 
 </head>
 <body >
+    <video id="trailer" loop crossorigin controls>
+        <source src="video/girl.webm"  type="video/webm">
+        <source src="video/girl.mp4"  type="video/mp4">
+        <source src="video/girl.mov"  type="video/quicktime">
+        Your browser does not support the <code>video</code> element.
+    </video>
     <div style="height:900px;background:#bfbcbc">
         <div id="div-top" style="margin-bottom: 2px;">
             <div class="col-lg-6" style="font-size:24px;top:30px;" >煤矿安全生产综合监管信息平台</div>
@@ -131,7 +148,7 @@
                                 </a>
                                  <span class="hover-tit">空间分析</span>
                                 <ul class="fold-li">
-                                    <li class="second-menu">
+                                    <li class="second-menu" id="videoShow">
                                         <a href="javascript:;">视频分析</a>
                                     </li>
                                     <li class="second-menu">

@@ -1749,9 +1749,6 @@ var DrawHelper = (function() {
             div.className = 'divider';
             toolbar.appendChild(div);
             addIcon('clear', options.clearIcon, '清除图形', function() {
-                //debugger;
-                //scene.primitives.removeAll();
-                // return;
                 //修改之处
                 drawHelper.disableAllEditMode();
                 var primitives = scene.primitives;
@@ -1780,7 +1777,7 @@ var DrawHelper = (function() {
                 }
             });
 
-            enhanceWithListeners(this);
+            // enhanceWithListeners(this);
 
         }
 
@@ -1960,9 +1957,7 @@ var DrawHelper = (function() {
                 }
             }
         }
-
     }
-
     return _;
 })();
 

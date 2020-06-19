@@ -1,4 +1,7 @@
 define(function (require, exports, module) {
+    // video 默认不显示
+    $("#trailer").css("display","none");
+    $("#trailer").css("z-index","-112"); 
     $(".menu-list .first-menu").click(function(){
         $(this).addClass("active").siblings().removeClass("active");
         if(!$(".window-left").hasClass('fold')){

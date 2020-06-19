@@ -1,5 +1,6 @@
 define(function (require, exports, module) {
     var cesium = null;
+    var videoElement = null;
     function init() {
         // 申请的token
         Cesium.Ion.defaultAccessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzZmQ1MTJiZC03NmFmLTQ0YzMtYjAwMS1iNTQ3ZDBkNmU2ODgiLCJpZCI6Mjg4MDUsInNjb3BlcyI6WyJhc'+
@@ -41,6 +42,111 @@ define(function (require, exports, module) {
         },function(){
             $(".syn3D").css("display","none");
         });
+         videoElement = document.getElementById('trailer');
+         // 116.3912, 39.920  xmin: 112.2720152869,ymin: 37.692958923 最大范围  
+         var positionOnEllipsoid = Cesium.Cartesian3.fromDegrees(112.286, 37.703);
+         //3D笛卡尔点 x 轴指向当地的东部方向 y 轴指向本地北方向 z 轴指向穿过该位置的椭球面法线方向 大小
+         var dimensions = new Cesium.Cartesian3(100, 50, 1.0);
+         // 从以度为单位的经度和纬度值返回Cartesian3位置
+         // 从具有东北向上轴的参考帧计算4x4变换矩阵以提供的原点为中心，以提供的椭球的固定参考系为中心
+         var translateMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(positionOnEllipsoid);
+         //从Matrix3计算代表旋转的Matrix4实例和代表翻译的Cartesian3     创建围绕x轴的旋转矩阵  旋转角度（以弧度为单位）正角是逆时针方向 toRadians 将度转换成弧度
+         var rotationXMatrix = Cesium.Matrix4.fromRotationTranslation(Cesium.Matrix3.fromRotationX(Cesium.Math.toRadians(-45.0)));
+         var rotationYMatrix = Cesium.Matrix4.fromRotationTranslation(Cesium.Matrix3.fromRotationY(Cesium.Math.toRadians(45.0)));
+         // 计算表示不均匀比例的Matrix4实例。
+         var scaleMatrix = Cesium.Matrix4.fromScale(dimensions);
+
+         // 一个4x4矩阵，可索引为列主序数组
+         var planeZModelMatrix = new Cesium.Matrix4();
+         // multiply计算两个矩阵的乘积，将结果放在planeZModelMatrix中
+         Cesium.Matrix4.multiply(translateMatrix, scaleMatrix, planeZModelMatrix);
+
+         var planeXModelMatrix = new Cesium.Matrix4();
+         Cesium.Matrix4.multiply(translateMatrix, rotationXMatrix, planeXModelMatrix);
+         Cesium.Matrix4.multiply(planeXModelMatrix, scaleMatrix, planeXModelMatrix);
+
+         var planeYModelMatrix = new Cesium.Matrix4();
+         Cesium.Matrix4.multiply(translateMatrix, rotationYMatrix, planeYModelMatrix);
+         Cesium.Matrix4.multiply(planeYModelMatrix, scaleMatrix, planeYModelMatrix);
+         //  createPlane(planeZModelMatrix, new Cesium.Color(0.0, 0.0, 1.0, 1.0));
+         // 创建平面 描述表示以原点为中心的平面的几何形状，并带有单位宽度和长度。
+         var planeGeometry = new Cesium.PlaneGeometry({
+            vertexFormat : Cesium.MaterialAppearance.VERTEX_FORMAT,
+         });
+        // 创建平面外轮廓 描述代表以原点为中心的平面轮廓的几何图形，并带有单位宽度和长度。
+        var planeOutlineGeometry = new Cesium.PlaneOutlineGeometry({
+        });
+        // 几何体实例化允许一个 Geometry 对象在多个对象中的位置不同的位置和独特的颜色
+        var planeGeometryInstance = new Cesium.GeometryInstance({
+            // 要实例化的几何,几何学
+            geometry : planeGeometry,
+            //  Matrix4 转换以将几何图形从模型坐标转换为世界坐标的模型矩阵。
+            modelMatrix : planeZModelMatrix
+        });
+         // 使用现有材料类型创建新平面
+         var material = Cesium.Material.fromType('Image');
+         material.uniforms.image = videoElement;
+         var planeOutlineGeometryInstance = new Cesium.GeometryInstance({
+             geometry : planeOutlineGeometry,
+             modelMatrix : planeZModelMatrix,
+             attributes : {
+                 color : Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(1.0, 1.0, 1.0, 1.0))
+             }
+         });
+         var myPrimitives = [];
+        // 空间分析中的视频分析
+        $("#videoShow").click(function(){
+            var scene =cesium.cesiumViewer.scene;
+            // 进入之后进行判断 如果播放则暂停，如果暂停则播放
+            var disValue = $("#trailer").css("display");
+            var primitive = new Cesium.Primitive({
+                // 渲染的几何实例-或单个几何实例
+                geometryInstances : planeGeometryInstance,
+                // 用于渲染图元的外观;任意几何的外观支持材质着色
+                appearance : new Cesium.MaterialAppearance({
+                    // 如果 true ，则几何将被关闭
+                    closed: false,
+                    // 用于确定片段颜色的材料
+                    material: material
+                })
+            });
+            var myPrimitive = new Cesium.Primitive({
+                geometryInstances : planeOutlineGeometryInstance,
+                appearance : new Cesium.PerInstanceColorAppearance({
+                    // 为 true ，则在片段着色器中使用平面阴影，这意味着不考虑照明。
+                    flat : true,
+                    // 可选的渲染状态将覆盖默认的渲染状态
+                    renderState : {
+                        lineWidth : Math.min(2.0, scene.maximumAliasedLineWidth)
+                    }
+                })
+            }); 
+            if(disValue =="block" ){
+                // 暂停
+                videoElement.pause();
+                $("#trailer").css("display","none"); 
+                $("#trailer").css("z-index","-112"); 
+                for(var i=0; i< myPrimitives.length; i++){
+                    scene.primitives.remove(myPrimitives[i]);
+                }
+                // scene.primitives.remove(myPrimitives.pop());
+            }else{
+                myPrimitives = [];
+                $("#trailer").css("display","block");  
+                $("#trailer").css("z-index","112"); 
+                // 播放
+                videoElement.play();
+                myPrimitives.push(primitive);
+                scene.primitives.add(primitive);
+                myPrimitives.push(myPrimitive);
+                scene.primitives.add(myPrimitive);
+                cesium.cesiumViewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(positionOnEllipsoid, 50));
+            }
+            // 呈现一种球体
+            // createPlane(planeXModelMatrix, new Cesium.Color(1.0, 0.0, 0.0, 1.0));
+            // createPlane(planeYModelMatrix, new Cesium.Color(0.0, 1.0, 0.0, 1.0));
+            // 具有中心和半径的包围球
+      });
         // 热点定位器 鼠标放上之后的样式 in out 
         $("#cesium3DLocation").hover(function(){
             if($(".window-left").hasClass('fold')){
@@ -78,8 +184,15 @@ define(function (require, exports, module) {
             cesium.flyToRectangle(cesium.initExtent);
         });
         //显示地图卷帘
+        var slider=true;
         $("#cesium3DSlider").click(function(){
-            cesium.showCesiumSlider(3);
+            if(slider){
+                cesium.showCesiumSlider(3);
+                slider =false;
+            }else{
+                cesium.hideCesiumSlider();
+                slider =true;;
+            }
         });
         //量算工具
         var html='<div id="toolTip" class="measure-mouse-tip" style="display:none;color:rgb(236, 159, 30);border: 1px solid rgb(236, 159, 30);position:absolute;font-size:12px;color:#fff">单击开始，双击结束</div>';
@@ -96,6 +209,7 @@ define(function (require, exports, module) {
         //var html='<div id="toolbar" class="cesium_toolbar"></div>';
         //$('.cesium-viewer').append(html);
         // start the draw helper to enable shape creation and editing
+        // var drawHelper = new DrawHelper(cesium.cesiumViewer);
         var drawHelper = new DrawHelper(cesium.cesiumViewer);
         var toolbar = drawHelper.addToolbar(document.getElementById("toolbar"), {
             buttons: ['marker', 'polyline', 'polygon', 'circle', 'extent']

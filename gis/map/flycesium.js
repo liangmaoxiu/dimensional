@@ -398,9 +398,27 @@ bxmap.FlyCesium = {
                 });
             }
         });*/
+    },
+    showPoints:function (lng, lat, name){
+       // 先清除地球上的标点 
+       this.cesium.cesiumViewer.entities.removeAll()  
+       // 清除完成后地球上没有其他点位了   
+       if(this.cesium.cesiumViewer.entities.values.length === 0) {  
+        bxmap.FlyCesium.cesium.flyToPoint(lng, lat, 3000);
+           var symbols=[];
+           var objLocations ={
+               name:name,
+               position:Cesium.Cartesian3.fromDegrees(lng, lat),
+               url:GLOBAL.domainResource+"/gis/cesium/images/red.png",
+               description:"",
+               width:26,
+               height:48,
+               type: "infoWindow",
+           };
+           symbols.push(objLocations);
+           bxmap.FlyCesium.cesium.addPictureMarkerSymbols(symbols);
+       }  
     }
-
-
 }
 
 

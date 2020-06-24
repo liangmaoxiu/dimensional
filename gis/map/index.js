@@ -41,6 +41,7 @@ define(function (require, exports, module) {
             $("#cesiumMap").css("width","95%");
         }
     })
+    
     var Map3d = require('./cesiumap');
     Map3d.init();  	
 });

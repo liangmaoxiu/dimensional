@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
+    <title>Demo</title>
     <style>
             #trailer {
             position: absolute;
@@ -26,9 +26,7 @@
     <link href="lib/JQueryZTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="lib/JQueryZTree/js/jquery.ztree.all-3.5.min.js"></script>
     <link href="gis/map/css/bootstrap.min.css" rel="stylesheet">
-    <link href="gis/map/css/index.css" rel="stylesheet">
-    <!--引入属性查询对应的样式--> 
-    <link href="gis/map/css/search.css" rel="stylesheet"> 
+    <link href="gis/map/css/index.css" rel="stylesheet"> 
     <!--引入iconfont样式-->
     <link href="iconfont/iconfont.css" rel="stylesheet">
     <!--cesium三维GIS部分样式-->
@@ -72,7 +70,6 @@
             domainRest : getRootPath(), //rest 接口域名
             domainResource : getRootPath() //资源服务器域名
         }
-        
     </script>
     <!--Cesium.js-->
     <script src="gis/cesium/cesium-api-1.52/Cesium.js"></script>
@@ -180,7 +177,7 @@
                                 </a>
                                 <span class="hover-tit">搜索</span>
                                 <ul class="fold-li">
-                                    <li id="cesiumSearch"class="second-menu">
+                                    <li class="second-menu">
                                         <a href="javascript:;">属性搜索</a>
                                     </li>
                                 </ul>
@@ -260,18 +257,8 @@
                 </div>
             </div>
             <!--属性查询界面-->
-            <div class="yjzy" style="display:none;">
-                <div class="search-wrapper active" style="top:10px;">
-                 <div class="input-holder">
-                  <input id="txtKey" type="text" class="search-input" placeholder="请输入关键词" /> 
-                  <button class="search-icon" id ="queryBtn" ><span></span></button>
-                 </div>
-                 <span class="close" id="close-span"></span>
-                </div>
-                <div id="qyList" class="yjzyCon content mCustomScrollbar _mCS_1 mCS-autoHide show-list">
-                    <div id="mCSB_1_container" style="position:relative; top:0; left:0;" dir="ltr"> 
-                    </div>
-                </div>
+            <div class="search-div">
+                <input type="search" id="search" placeholder="搜索地点" >
             </div>
         </div>
     </div>

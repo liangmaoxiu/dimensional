@@ -1656,6 +1656,7 @@ var DrawHelper = (function() {
 
     }
 
+    // 标绘工具符号
     _.DrawHelperWidget = (function() {
 
         // constructor
@@ -1775,9 +1776,8 @@ var DrawHelper = (function() {
                     }
 
                 }
-            });
-
-            // enhanceWithListeners(this);
+            }); 
+            enhanceWithListeners(this);
 
         }
 

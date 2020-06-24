@@ -162,6 +162,7 @@ MapConfig.locations= {
 MapConfig.Tiles3D = {
     url:"http://192.168.31.81:8180/cesium/3DModel/test/3Dtiles/xhg/tileset.json"
 };
+MapConfig.backbasePath= "http://192.168.31.81:9010/";
 /*三维模型gltf配置信息*/
 MapConfig.Obj3D = {
     position:Cesium.Cartesian3.fromDegrees(111.828682, 21.579571,3000),//阳江闸坡

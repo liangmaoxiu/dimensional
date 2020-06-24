@@ -82,7 +82,7 @@
     height: auto;
     overflow: hidden;
     text-align: center;
-    right: 10px;
+    right: 400px;
     height: 29px;
     line-height: 29px;
     /* background: #303336; */
@@ -112,7 +112,7 @@
 .pub_syn3D{float:left;display:inline;line-height:22px;}
 .pub_syn_rt3D{float:left;display:inline;}
 .pub_syn_rt3D a{color:#fff;margin-right:10px;display:inline-block;}
-.pub_syn_rt3D a:hover{text-decoration:underline;color:#5694dd;}
+.pub_syn_rt3D a:hover{text-decoration:underline;color:#fff;}
 
 .syn3D{
     /*width: 315px;*/

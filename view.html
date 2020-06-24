@@ -1,0 +1,47 @@
+<html>
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>属性查询</title>
+    <!--引入属性查询对应的样式--> 
+    <link href="gis/map/css/search.css" rel="stylesheet"> 
+    <!--引入样式和js文件--> 
+    <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
+ </head>
+ <body>
+  <div class="yjzy">
+   <div class="search-wrapper active">
+    <div class="input-holder">
+     <input id="txtKey" type="text" class="search-input" placeholder="请输入关键词" /> 
+     <button class="search-icon" onclick="searchToggle(this,event)"><span></span></button>
+    </div>
+    <span class="close" onclick="searchToggle(this,event)"></span>
+   </div>
+   <div id="qyList" class="yjzyCon content mCustomScrollbar _mCS_1 mCS-autoHide" style="height: 563px; overflow: visible;">
+    <div id="mCSB_1" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" tabindex="0" style="max-height: none;">
+     <div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr"> 
+      <div class="col-small col-big activate"> 
+       <div class="container1" onclick="thisWidget.centerAt('B0FFHH68OO')"> 
+        <div class="container2"> 
+         <span class="numSpan">1</span> 
+         <div class="line1">
+          火星科技
+          <span class="typeLabel" style="right:40px;">信息技术</span>
+          <span class="typeLabel"><a href="javascript:thisWidget.showXQ('B0FFHH68OO')">详情</a></span>
+         </div> 
+         <div class="line2">
+          名称：合肥火星科技有限公司
+         </div> 
+         <div class="line3">
+          地址:安徽省合肥市高新区望江西路与金桂路交口鲲鹏国际广场6号楼701室
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      </div> 
+     </div>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

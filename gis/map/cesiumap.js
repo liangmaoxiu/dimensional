@@ -34,6 +34,55 @@ define(function (require, exports, module) {
                 $(".syn3D").css("display","none");
             }
         });
+        // 属性查询
+        var searchFlag=true;
+        $("#cesiumSearch").click(function(){
+            if(searchFlag){
+                $(".yjzy").css("display","block");
+                searchFlag=false;
+            }else{
+                $(".yjzy").css("display","none");
+                searchFlag=true;
+            }
+
+        });
+        // 查询方法
+        $("#queryBtn").click(function(){
+            var key = $("#txtKey").val();
+            var inList = document.getElementById('mCSB_1_container');
+            $.ajax({
+                type: "post",
+                url:MapConfig.backbasePath+"/apia/v1/arcgis/getCompany",
+                dataType:"json",
+                data:{
+                    token:$("#token").val(),
+                    minecode:$('#minecode').val(),
+                    key:key,
+                },
+                async: true,
+                success:function(result) {
+                    var arrays= result.data;
+                    var str="";
+                    for(var i=0 ; i<arrays.length; i++){  
+                        str +="<div class='col-small col-big activate' onclick= bxmap.FlyCesium.showPoints('"+arrays[i].x_axis+"','"+arrays[i].y_axis+"','"+arrays[i].name+"')><div class='container1' ><div class='container2'> ";
+                        str +="<span class='numSpan'>"+(i+1)+"</span>"; 
+                        str +="<div class='line1'>"+arrays[i].name+"</div>";
+                        str +="<div class='line3'>地址:"+arrays[i].address+"</div>";
+                        str +="</div></div></div>"; 
+                    }
+                    inList.innerHTML=str;
+                },
+                error:function(){
+                    toastr.error('查询失败！');
+                }
+            });
+        });
+    
+        // 属性中关闭方法
+        $("#close-span").click(function(){
+            $(".yjzy").css("display","none");
+            searchFlag=true;
+        });
         // 图层管理器 鼠标放上之后的样式 in out 
         $("#cesium3DLayers").hover(function(){
             if($(".window-left").hasClass('fold')){
@@ -206,14 +255,13 @@ define(function (require, exports, module) {
             new measureArea(cesium);
         });
         //绘制工具Draw
-        //var html='<div id="toolbar" class="cesium_toolbar"></div>';
-        //$('.cesium-viewer').append(html);
         // start the draw helper to enable shape creation and editing
-        // var drawHelper = new DrawHelper(cesium.cesiumViewer);
         var drawHelper = new DrawHelper(cesium.cesiumViewer);
         var toolbar = drawHelper.addToolbar(document.getElementById("toolbar"), {
+            // 工具栏中的工具的个数
             buttons: ['marker', 'polyline', 'polygon', 'circle', 'extent']
         });
+        // 标记监控
         toolbar.addListener('markerCreated', function(event) {
             //loggingMessage('Marker created at ' + event.position.toString());
             // create one common billboard collection for all billboards
@@ -233,6 +281,7 @@ define(function (require, exports, module) {
             });
             billboard.setEditable();
         });
+        // 监听画线
         toolbar.addListener('polylineCreated', function(event) {
             //loggingMessage('Polyline created with ' + event.positions.length + ' points');
             var polyline = new DrawHelper.PolylinePrimitive({
@@ -248,6 +297,7 @@ define(function (require, exports, module) {
             });
 
         });
+        // 监听画面
         toolbar.addListener('polygonCreated', function(event) {
             //loggingMessage('Polygon created with ' + event.positions.length + ' points');
             var polygon = new DrawHelper.PolygonPrimitive({
@@ -262,6 +312,7 @@ define(function (require, exports, module) {
             });
 
         });
+        // 画圆
         toolbar.addListener('circleCreated', function(event) {
             //loggingMessage('Circle created: center is ' + event.center.toString() + ' and radius is ' + event.radius.toFixed(1) + ' meters');
             var circle = new DrawHelper.CirclePrimitive({
@@ -276,6 +327,7 @@ define(function (require, exports, module) {
                 //loggingMessage('Circle edited: radius is ' + event.radius.toFixed(1) + ' meters');
             });
         });
+        // 另外加的清空
         toolbar.addListener('extentCreated', function(event) {
             var extent = event.extent;
             //loggingMessage('Extent created (N: ' + extent.north.toFixed(3) + ', E: ' + extent.east.toFixed(3) + ', S: ' + extent.south.toFixed(3) + ', W: ' + extent.west.toFixed(3) + ')');

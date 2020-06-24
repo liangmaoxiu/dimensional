@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Use correct character set. -->
+    <meta charset="utf-8">
+    <!-- Tell IE to use the latest, best version. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>平面播放</title>
+    <!--cesium三维GIS部分样式-->
+    <link href="gis/cesium/cesiumviewer.css" rel="stylesheet" type="text/css" />
+    <link href="gis/cesium/cesium-api-1.52/Widgets/widgets.css" rel="stylesheet" type="text/css" />
+    <!--引入样式和js文件--> 
+    <script type="text/javascript" src="lib/jquery/jquery-1.9.1.min.js"></script>
+    <script src="gis/cesium/cesium-api-1.52/Cesium.js"></script>
+    <script src="gis/cesium/cesiumviewer.js"></script>
+    <style>
+        html,
+        body,
+        #cesiumContainer {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #trailer {
+            position: absolute;
+            bottom: 10px;
+            /* top:10px; */
+            right: 15px;
+            width: 220px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="credit"></div>
+        <div id="cesiumContainer">
+    </div>
+    <video id="trailer"  autoplay loop crossorigin controls>
+        <source src="video/girl.webm"  type="video/webm">
+        <source src="video/girl.mp4"  type="video/mp4">
+        <source src="video/girl.mov"  type="video/quicktime">
+        Your browser does not support the <code>video</code> element.
+    </video>
+    <script>
+        Cesium.Ion.defaultAccessToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzZmQ1MTJiZC03NmFmLTQ0YzMtYjAwMS1iNTQ3ZDBkNmU2ODgiLCJpZCI6Mjg4MDUsInNjb3BlcyI6WyJhc'+
+        '2wiLCJhc3IiLCJhc3ciLCJnYyIsInByIl0sImlhdCI6MTU5MTU4NzY0Mn0.9pVXyPhcRF9lax5CPChENS_pof73mT8Aexbfb4CB5PY';
+        var viewer = new Cesium.Viewer('cesiumContainer',{//需要进行可视化的数据源的集合
+        showRenderLoopErrors: false,
+        animation: false, //是否显示动画控件
+        shouldAnimate : true,
+        homeButton: false, //是否显示Home按钮
+        fullscreenButton: false, //是否显示全屏按钮
+        baseLayerPicker: false , //是否显示图层选择控件
+        geocoder: false, //是否显示地名查找控件
+        timeline: false, //是否显示时间线控件
+        sceneModePicker: false, //是否显示投影方式控件
+        navigationHelpButton: false, //是否显示帮助信息控件
+        infoBox: false, //是否显示点击要素之后显示的信息
+        requestRenderMode: true, //启用请求渲染模式
+        scene3DOnly: false, //每个几何实例将只能以3D渲染以节省GPU内存
+        sceneMode: 3, //初始场景模式 1 2D模式 2 2D循环模式 3 3D模式  Cesium.SceneMode
+        fullscreenElement: document.body, //全屏时渲染的HTML元素
+        });
+        var scene = viewer.scene;
+
+        //3D笛卡尔点 x 轴指向当地的东部方向 y 轴指向本地北方向 z 轴指向穿过该位置的椭球面法线方向
+        var dimensions = new Cesium.Cartesian3(400000.0, 400000.0, 1.0);
+        // 从以度为单位的经度和纬度值返回Cartesian3位置
+        var positionOnEllipsoid = Cesium.Cartesian3.fromDegrees(116.3912, 39.920);
+        // 从具有东北向上轴的参考帧计算4x4变换矩阵以提供的原点为中心，以提供的椭球的固定参考系为中心
+        var translateMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(positionOnEllipsoid);
+        //从Matrix3计算代表旋转的Matrix4实例和代表翻译的Cartesian3     创建围绕x轴的旋转矩阵  旋转角度（以弧度为单位）正角是逆时针方向 toRadians 将度转换成弧度
+        var rotationXMatrix = Cesium.Matrix4.fromRotationTranslation(Cesium.Matrix3.fromRotationX(Cesium.Math.toRadians(-90.0)));
+        var rotationYMatrix = Cesium.Matrix4.fromRotationTranslation(Cesium.Matrix3.fromRotationY(Cesium.Math.toRadians(90.0)));
+        // 计算表示不均匀比例的Matrix4实例。
+        var scaleMatrix = Cesium.Matrix4.fromScale(dimensions);
+
+        // 一个4x4矩阵，可索引为列主序数组
+        var planeZModelMatrix = new Cesium.Matrix4();
+        // multiply计算两个矩阵的乘积，将结果放在planeZModelMatrix中
+        Cesium.Matrix4.multiply(translateMatrix, scaleMatrix, planeZModelMatrix);
+
+        var planeXModelMatrix = new Cesium.Matrix4();
+        Cesium.Matrix4.multiply(translateMatrix, rotationXMatrix, planeXModelMatrix);
+        Cesium.Matrix4.multiply(planeXModelMatrix, scaleMatrix, planeXModelMatrix);
+
+        var planeYModelMatrix = new Cesium.Matrix4();
+        Cesium.Matrix4.multiply(translateMatrix, rotationYMatrix, planeYModelMatrix);
+        Cesium.Matrix4.multiply(planeYModelMatrix, scaleMatrix, planeYModelMatrix);
+
+        var videoElement = document.getElementById('trailer');
+
+        createPlane(planeZModelMatrix, new Cesium.Color(0.0, 0.0, 1.0, 1.0));
+        // 呈现一种球体
+        // createPlane(planeXModelMatrix, new Cesium.Color(1.0, 0.0, 0.0, 1.0));
+        // createPlane(planeYModelMatrix, new Cesium.Color(0.0, 1.0, 0.0, 1.0));
+
+        function createPlane(planeModelMatrix) {
+             // 创建平面 描述表示以原点为中心的平面的几何形状，并带有单位宽度和长度。
+            var planeGeometry = new Cesium.PlaneGeometry({
+                vertexFormat : Cesium.MaterialAppearance.VERTEX_FORMAT,
+            });
+
+            // 创建平面外轮廓 描述代表以原点为中心的平面轮廓的几何图形，并带有单位宽度和长度。
+            var planeOutlineGeometry = new Cesium.PlaneOutlineGeometry({
+            });
+            // 几何体实例化允许一个 Geometry 对象在多个对象中的位置不同的位置和独特的颜色
+            var planeGeometryInstance = new Cesium.GeometryInstance({
+                // 要实例化的几何,几何学
+                geometry : planeGeometry,
+                //  Matrix4 转换以将几何图形从模型坐标转换为世界坐标的模型矩阵。
+                modelMatrix : planeModelMatrix
+            });
+            // 使用现有材料类型创建新材料
+            var material = Cesium.Material.fromType('Image');
+            material.uniforms.image = videoElement;
+
+            scene.primitives.add(new Cesium.Primitive({
+                // 渲染的几何实例-或单个几何实例。
+                geometryInstances : planeGeometryInstance,
+                // 用于渲染图元的外观;任意几何的外观支持材质着色
+                appearance : new Cesium.MaterialAppearance({
+                    // 如果 true ，则几何将被关闭
+                    closed: false,
+                    // 用于确定片段颜色的材料
+                    material: material
+                })
+            }));
+
+            var planeOutlineGeometryInstance = new Cesium.GeometryInstance({
+                geometry : planeOutlineGeometry,
+                modelMatrix : planeModelMatrix,
+                attributes : {
+                    color : Cesium.ColorGeometryInstanceAttribute.fromColor(new Cesium.Color(1.0, 1.0, 1.0, 1.0))
+                }
+            });
+
+            scene.primitives.add(new Cesium.Primitive({
+                geometryInstances : planeOutlineGeometryInstance,
+                appearance : new Cesium.PerInstanceColorAppearance({
+                    // 为 true ，则在片段着色器中使用平面阴影，这意味着不考虑照明。
+                    flat : true,
+                    // 可选的渲染状态将覆盖默认的渲染状态
+                    renderState : {
+                        lineWidth : Math.min(2.0, scene.maximumAliasedLineWidth)
+                    }
+                })
+            })); 
+        }
+        // 具有中心和半径的包围球
+        viewer.camera.flyToBoundingSphere(new Cesium.BoundingSphere(positionOnEllipsoid, 250000));
+    
+    </script>
+</body>
+
+</html>
